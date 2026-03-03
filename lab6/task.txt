@@ -1,0 +1,14 @@
+touch sample.txt
+ls -la sample.txt
+
+sudo groupadd teamgroup
+sudo adduser teamuser
+
+sudo chown teamuser:teamgroup sample.txt
+ls -la sample.txt
+
+sudo chmod 775 sample.txt
+ls -la sample.txt
+
+sudo -u teamuser cat sample.txt
+sudo -u teamuser echo "Hello" >> sample.txt

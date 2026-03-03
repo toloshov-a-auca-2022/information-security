@@ -1,0 +1,53 @@
+Lab 8 – Vim Basics
+
+Open file:
+vim file.txt
+
+Vim has modes:
+Normal mode – default mode (for commands)
+Insert mode – for typing text (press i)
+Esc – go back to Normal mode
+: – command mode
+
+Navigation (Normal mode):
+h j k l – move left, down, up, right
+w – jump to next word
+b – jump back one word
+0 – start of line
+$ – end of line
+gg – go to top
+G – go to bottom
+
+Editing:
+dd – delete line
+yy – copy line
+p – paste
+x – delete one character
+cw – change word
+u – undo
+Ctrl+r – redo
+:%d – delete everything
+
+Search:
+ /word – search forward
+ n – next result
+ ?word – search backward
+
+Replace:
+:%s/old/new/g – replace all
+:%s/old/new/gc – replace with confirmation
+
+Split screen:
+:split – horizontal split
+:vsplit – vertical split
+Ctrl+w w – switch between splits
+
+Save and quit:
+:w – save
+:q – quit
+:wq – save and quit
+:q! – quit without saving
+
+Important:
+Always press Esc before typing commands.
+Vim starts in Normal mode.

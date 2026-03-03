@@ -1,0 +1,68 @@
+Task: Explore nginx proxy_pass parameter to forward requests to a running API.
+
+Scenario:
+Flask API runs on localhost:5000.
+NGINX listens on port 80 and forwards requests to the API.
+
+Step 1: Create Flask API
+
+File: /home/api.py
+
+#!/usr/bin/env python3
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return jsonify({"message": "Hello from Flask API!", "status": "success"})
+
+@app.route('/api/users')
+def users():
+    return jsonify({"users": ["Alice", "Bob", "Charlie"]})
+
+@app.route('/api/status')
+def status():
+    return jsonify({"api": "running", "version": "1.0"})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+
+Run API:
+chmod +x /home/api.py
+python3 /home/api.py
+
+Step 2: Install NGINX
+
+sudo apt update
+sudo apt install nginx
+
+Step 3: Configure NGINX
+
+sudo nano /etc/nginx/sites-available/api_proxy
+
+Add:
+
+server {
+    listen 80;
+    server_name localhost;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:5000/;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+Enable and restart:
+
+sudo ln -s /etc/nginx/sites-available/api_proxy /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+
+Test:
+
+curl http://localhost/api/status
+curl http://localhost/api/users

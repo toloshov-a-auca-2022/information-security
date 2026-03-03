@@ -1,0 +1,68 @@
+Task: Install simple utilities from GitHub source code.
+
+Why install from source:
+- Get newest version
+- Customize build options
+- Learn how software is compiled
+- Some tools are not available in apt
+
+Common methods:
+1. ./configure → make → make install
+2. CMake
+3. git clone + make
+4. Language-based tools (cargo, python setup.py)
+
+Example 1: bat
+
+bat is an improved version of cat with syntax highlighting.
+
+Install Rust:
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+
+Clone and build:
+git clone https://github.com/sharkdp/bat.git
+cd bat
+cargo build --release
+
+Install:
+sudo cp target/release/bat /usr/local/bin/
+
+Test:
+bat --version
+bat /etc/hosts
+
+Example 2: htop
+
+htop is an interactive process viewer.
+
+Install dependencies:
+sudo apt update
+sudo apt install build-essential libncurses5-dev libncursesw5-dev
+
+Download and build:
+wget https://github.com/htop-dev/htop/releases/download/3.3.0/htop-3.3.0.tar.xz
+tar -xvf htop-3.3.0.tar.xz
+cd htop-3.3.0
+./configure
+make
+sudo make install
+
+Test:
+htop
+
+Example 3: fzf
+
+fzf is a command line fuzzy finder.
+
+Clone and install:
+git clone https://github.com/junegunn/fzf.git
+cd fzf
+./install
+
+Test:
+fzf
+
+Conclusion:
+Installing from source usually means:
+download → build → install → test

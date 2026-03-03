@@ -1,0 +1,3 @@
+It represents that after doing basic Vim actions (open file, insert text, delete, save), we now need to practice more advanced commands.
+So as a student I understand that this task is about exploring additional Vim features like searching for words in the file, replacing text, copying and pasting lines, and working with split windows. It is basically continuing the practice to become more comfortable using Vim, not just basic editing but also navigation and text manipulation tools.
+

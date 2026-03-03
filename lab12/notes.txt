@@ -1,0 +1,90 @@
+Lab 12: Brute-force Attacks (Local Demo)
+Date: 2026-03-02
+
+Disclaimer:
+This lab is for local testing only. Do not attack real systems without permission.
+
+Overview:
+A brute-force attack tries many username and password combinations until it finds the correct one. It can use simple combinations, password lists, or personal information.
+
+Types of attacks:
+- Simple brute-force (all combinations)
+- Dictionary attack (common passwords list)
+- Credential stuffing (leaked credentials)
+- Reverse brute-force (one password, many users)
+- Hybrid (dictionary + variations)
+
+Part 1: Create Local FastAPI Login Service
+
+mkdir brute-force-server
+cd brute-force-server
+python3 -m venv venv
+source venv/bin/activate
+pip install "fastapi[standard]"
+
+Create main.py:
+
+from typing import Annotated
+from fastapi import FastAPI, Form
+
+app = FastAPI()
+
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "12345admin"
+
+@app.post("/login")
+def login(username: Annotated[str, Form()], password: Annotated[str, Form()]):
+    if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+        return "secret token"
+    return "Invalid credentials"
+
+Run server:
+fastapi dev main.py
+
+Server runs at http://127.0.0.1:8000
+
+Part 2: Install Hydra and Test
+
+sudo apt update
+sudo apt install hydra
+
+Create usernames.txt and passwords.txt.
+
+Run Hydra:
+hydra -f -I -V -L usernames.txt -P passwords.txt -s 8000 localhost http-form-post "/login:username=^USER^&password=^PASS^:F=Invalid"
+
+Important flags:
+-f stop after first success
+-V show attempts
+-L username list
+-P password list
+-s port number
+
+Expected result:
+Hydra prints valid username and password when found.
+
+Task: Attacks using personal information
+
+Example data:
+Name: Ali
+Surname: Karimov
+DOB: 2002-04-16
+Nickname: alik
+
+Example password guesses:
+ali2002
+ali0416
+karimov2002
+alik16
+ali_karimov
+Ali2002!
+
+Attack idea:
+1. Collect public info
+2. Generate combinations
+3. Add common endings like 123 or !
+4. Use generated list in dictionary attack
+
+Conclusion:
+This lab shows how brute-force works locally and how weak passwords based on personal info can be guessed easily.
+Only perform tests on systems you own or have permission to test.

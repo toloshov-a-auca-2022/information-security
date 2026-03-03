@@ -1,0 +1,33 @@
+Lab 8: Vim Basics - Task Solution
+
+Task: Explore more Vim commands (search, replace, yank/paste, split windows)
+
+vim file.txt
+
+# Search
+/word
+n
+?word
+
+# Replace
+:s/old/new
+:%s/old/new/g
+:%s/old/new/gc
+
+# Yank and paste
+yy
+3yy
+p
+P
+
+# Split windows
+:split
+:vsplit
+Ctrl+w w
+Ctrl+w q
+
+# Save and quit
+:w
+:q
+:wq
+:q!
