@@ -1,0 +1,12 @@
+groups
+id $USER
+
+sudo groupadd projectgroup
+sudo adduser projectuser
+sudo usermod -aG projectgroup projectuser
+
+id projectuser
+groups projectuser
+
+sudo deluser --remove-home projectuser
+sudo groupdel projectgroup
